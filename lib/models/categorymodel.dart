@@ -31,11 +31,4 @@ class ExpenseCategory {
       icon: icons[value['icon']],
     );
   }
-
-  Map<String, dynamic> fromMap() => {
-        'title': title,
-        'entries': entries,
-        'totalAmount': totalAmount,
-        'icon': icon,
-      };
 }
