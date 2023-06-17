@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_app/screens/category.dart';
+import './models/databaseprovidor.dart';
+import 'package:wallet_app/screens/category.dart';
 
 void main() {
   runApp(const MyApp());
