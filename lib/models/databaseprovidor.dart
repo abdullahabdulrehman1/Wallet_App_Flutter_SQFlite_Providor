@@ -1,9 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:wallet_app/models/categorymodel.dart';
+import 'package:wallet_app/screens/category.dart';
 
 import '../constants/icons.dart';
 
-class DatanaseProvidor {
+class DatanaseProvidor with ChangeNotifier {
+  List<ExpenseCategory> _categories = [];
+  List<ExpenseCategory> get Category => [];
   Database? _database;
   Future<Database> get database async {
     final dbDirectory = await getDatabasesPath();
@@ -43,6 +48,21 @@ class DatanaseProvidor {
           'totalAmount': (0.0).toString(),
         });
       }
+    });
+  }
+
+//method t o fetch categories
+
+  Future<List<ExpenseCategory>> fetchCategroies() async {
+    final db = await database;
+    return await db.transaction((txn) async {
+      return await txn.query(ctable).then((value) {
+        final converted = List<Map<String, dynamic>>.from(value);
+        List<ExpenseCategory> nlist = List.generate(converted.length,
+            (index) => ExpenseCategory.fromMap(converted[index]));
+        _categories = nlist;
+        return _categories;
+      });
     });
   }
 }

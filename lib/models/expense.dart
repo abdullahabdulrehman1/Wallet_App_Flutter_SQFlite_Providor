@@ -19,4 +19,10 @@ class ExpenseModel {
         'date': date,
         'category': category
       };
+  factory ExpenseModel.fromString(Map<String, dynamic> value) => ExpenseModel(
+      id: value['id'],
+      title: value['title'],
+      amount: double.parse(value['amount']),
+      date: DateTime.parse(value['date']),
+      category: value['category']);
 }
